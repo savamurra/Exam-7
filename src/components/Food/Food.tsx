@@ -7,16 +7,14 @@ interface FoodProps {
     addFood: (foodsName: string) => void;
 }
 
-const Food:React.FC<FoodProps> = ({foods,addFood}) => {
-
-
+const Food: React.FC<FoodProps> = ({foods, addFood}) => {
     return (
         <div className='foodList'>
             <h3 className='title'>Add Items</h3>
             {foods.map(food => (
                 <button key={food.name}
                         className='foodWrapper'
-                        onClick={()=> addFood(food.name)}
+                        onClick={() => addFood(food.name)}
                 >
                     <img src={food.image} alt={food.name}/>
                     <p className='foodName'>{food.name}</p>

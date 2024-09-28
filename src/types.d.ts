@@ -1,4 +1,4 @@
-export interface IFood{
+export interface IFood {
     name: string;
     price: number;
     image: string;
