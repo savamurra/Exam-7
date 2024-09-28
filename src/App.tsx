@@ -9,6 +9,7 @@ import cola from "./assets/cola.svg";
 import coffee from "./assets/coffee.svg";
 import {IFood, IItems} from "./types";
 import {useState} from "react";
+import Total from "./components/Tota/Total.tsx";
 
 
 function App() {
@@ -31,16 +32,19 @@ function App() {
     ]);
 
     const [addedItems, setAddedItems] = useState<IItems[]>([])
+    const [total, setTotal] = useState<number>(0);
 
     const addItemsToOrder = (foodsName: string) => {
-        console.log(foodsName)
         setItemsCount(prevState =>
             prevState.map(foods =>
                 foods.name === foodsName ? {...foods, count: foods.count + 1} : foods,
             )
         );
 
-        const ingredientToAdd = foods.find(item => item.name === foodsName);
+        const foodToAdd = itemsCount.find(item => item.name === foodsName);
+        if (foodToAdd) {
+            setTotal(prevTotal => prevTotal + foodToAdd.price);
+        }
 
         setAddedItems(prevItems => {
             const currentOrder = prevItems.find(item => item.name === foodsName);
@@ -49,22 +53,49 @@ function App() {
                     item.name === foodsName ? {
                         ...item,
                         count: item.count + 1,
-                        price: item.price + ingredientToAdd!.price
+                        price: item.price + foodToAdd!.price
                     } : item
                 );
             } else {
-                return [...prevItems, {name: foodsName, count: 1, price: ingredientToAdd!.price}];
+                return [...prevItems, {name: foodsName, count: 1, price: foodToAdd!.price}];
             }
         })
+    };
 
+    const deleteOrder = (foodsName: string) => {
+        setItemsCount(prevState =>
+            prevState.map(foods =>
+                foods.name === foodsName ? {...foods, count: foods.count - 1} : foods,
+            )
+        );
 
-        console.log(itemsCount)
+        const foodToDelete = foods.find(item => item.name === foodsName);
+
+        setAddedItems(prevItems => {
+            const currentOrder = prevItems.find(item => item.name === foodsName);
+            if (currentOrder) {
+                if (currentOrder.count > 1) {
+
+                    return prevItems.map(item =>
+                        item.name === foodsName ? {
+                            ...item,
+                            count: item.count - 1,
+                            price: item.price - foodToDelete!.price
+                        } : item
+                    );
+                } else {
+                    return prevItems.filter(item => item.name !== foodsName);
+                }
+            }
+            return prevItems;
+        })
     };
 
     return (
         <>
             <Food foods={foods} addFood={addItemsToOrder}/>
-            <Order items={addedItems}/>
+            <Order items={addedItems} deleteFood={deleteOrder}/>
+            <Total total={total}/>
         </>
     );
 }
