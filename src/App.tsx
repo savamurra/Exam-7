@@ -1,15 +1,15 @@
 import './App.css';
 import Food from './components/Food/Food.tsx';
 import Order from './components/Order/Order.tsx';
-import burger from "./assets/burger.svg";
-import pizza from "./assets/pizza.svg";
-import sushi from "./assets/sushi.svg";
-import tea from "./assets/tea.svg";
-import cola from "./assets/cola.svg";
-import coffee from "./assets/coffee.svg";
-import {IFood, IItems} from "./types";
-import {useState} from "react";
-import Total from "./components/Tota/Total.tsx";
+import burger from './assets/burger.svg';
+import pizza from './assets/pizza.svg';
+import sushi from './assets/sushi.svg';
+import tea from './assets/tea.svg';
+import cola from './assets/cola.svg';
+import coffee from './assets/coffee.svg';
+import {IFood, IItems} from './types';
+import {useState} from 'react';
+import Total from './components/Total/Total.tsx';
 
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         {name: 'Coffee', count: 0, price: 120},
     ]);
 
-    const [addedItems, setAddedItems] = useState<IItems[]>([])
+    const [addedItems, setAddedItems] = useState<IItems[]>([]);
     const [total, setTotal] = useState<number>(0);
 
     const addItemsToOrder = (foodsName: string) => {
@@ -59,7 +59,7 @@ function App() {
             } else {
                 return [...prevItems, {name: foodsName, count: 1, price: foodToAdd!.price}];
             }
-        })
+        });
     };
 
     const deleteOrder = (foodsName: string) => {
@@ -70,6 +70,9 @@ function App() {
         );
 
         const foodToDelete = foods.find(item => item.name === foodsName);
+        if (foodToDelete) {
+            setTotal(prevTotal => prevTotal - foodToDelete.price);
+        }
 
         setAddedItems(prevItems => {
             const currentOrder = prevItems.find(item => item.name === foodsName);
@@ -88,7 +91,7 @@ function App() {
                 }
             }
             return prevItems;
-        })
+        });
     };
 
     return (
