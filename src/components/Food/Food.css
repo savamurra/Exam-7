@@ -1,0 +1,39 @@
+.foodList{
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    padding: 20px;
+    border: 3px solid #88ae84;
+}
+
+.foodWrapper{
+    width: 145px;
+    background: #88ae84;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.foodWrapper:hover{
+    box-shadow: 8px 5px 6px #aaa7a7;
+    transform: scale(1.1);
+}
+
+.title{
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    margin: 0;
+    background: white;
+    color: #477e80;
+    font-size: 22px;
+}
+
+.foodName{
+    font-size: 20px;
+}
+
+img{
+    width: 50px;
+}
