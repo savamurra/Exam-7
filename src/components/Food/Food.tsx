@@ -1,25 +1,14 @@
 import * as React from 'react';
-import burger from '../../assets/burger.svg';
-import pizza from '../../assets/pizza.svg';
-import sushi from '../../assets/sushi.svg';
-import tea from '../../assets/tea.svg';
-import cola from '../../assets/cola.svg';
-import coffee from '../../assets/coffee.svg';
 import './Food.css';
+import {IFood} from '../../types';
 
 interface FoodProps {
-    addFood: React.MouseEventHandler<HTMLDivElement>;
+    foods: IFood[]
+    addFood: (foodsName: string) => void;
 }
 
-const Food:React.FC<FoodProps> = ({addFood}) => {
-    const foods = [
-        {name: 'Hamburger', price: 120, image: burger},
-        {name: 'Pizza', price: 70, image: pizza},
-        {name: 'Sushi', price: 200, image: sushi},
-        {name: 'Tea', price: 50, image: tea},
-        {name: 'Cola', price: 80, image: cola},
-        {name: 'Coffee', price: 120, image: coffee}
-    ]
+const Food:React.FC<FoodProps> = ({foods,addFood}) => {
+
 
     return (
         <div className='foodList'>
@@ -27,7 +16,7 @@ const Food:React.FC<FoodProps> = ({addFood}) => {
             {foods.map(food => (
                 <button key={food.name}
                         className='foodWrapper'
-                        onClick={addFood}
+                        onClick={()=> addFood(food.name)}
                 >
                     <img src={food.image} alt={food.name}/>
                     <p className='foodName'>{food.name}</p>

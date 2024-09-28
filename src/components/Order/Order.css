@@ -13,3 +13,32 @@
     color: #477e80;
     font-size: 22px;
 }
+
+.orderInner{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+p{
+    margin: 5px 0;
+}
+.orderItem{
+    width: 150px;
+    border-radius: 1px 30px 1px 10px;
+    background: #88ae84;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteBtn{
+    background: url("../../assets/delete.svg") top 5px center  / 40px auto no-repeat;
+    padding: 25px 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.orderItemsName{
+    text-transform: uppercase;
+}
